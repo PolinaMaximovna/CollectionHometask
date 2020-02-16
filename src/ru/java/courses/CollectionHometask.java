@@ -8,16 +8,19 @@ import javax.swing.tree.TreeCellEditor;
 public class CollectionHometask {
 
     public static void main(String[] args) {
-        User user1 = new User("Tom1",20);
-        User user2 = new User("Tom2",25);
-        User user3 = new User("Tom3",23);
-        User user4 = new User("Tom1",20);
-        User user5 = new User("Tom5",27);
-        User user6 = new User("Tom1",20);
+        User user1 = new User("Tom1",20, "89518775431");
+        User user2 = new User("Tom2",25,"89452175454" );
+        User user3 = new User("Tom3",23, "89518885435");
+        User user4 = new User("Tom1",20, "89518775481");
+        User user5 = new User("Tom5",27, "89518775937");
+        User user6 = new User("Tom1",20, "89111111111");
 
         List<User> peopleList = Arrays.asList(user1, user2, user3, user4, user5, user6);
         User userLast = task1(peopleList);
         System.out.println(userLast.name+ " - "+ userLast.age);
+
+        // task 2
+        System.out.println("Кол-во записей в справочнике - "+ task2(peopleList));
     }
 
 
@@ -28,9 +31,10 @@ public class CollectionHometask {
         private int age;
         private String phone;
 
-        public User(String name, int age) {
+        public User(String name, int age, String phone) {
             this.name = name;
             this.age = age;
+            this.phone = phone;
         }
 
         public User(String phone) {
@@ -88,10 +92,18 @@ public class CollectionHometask {
      * 4. Вернуть количество записей в справочнике
      */
     public static int task2(Collection<User> source) {
-        // свой код нужно писать тут
-        // следующую строку можно удалять
 
-        return 0;
+//        Map<String, String> guidePhone1 = new HashMap<String, String>();
+//        for(User user:source)
+//        {
+//            guidePhone1.put(user.getPhone(),user.getName());
+//        }
+
+        Map<String, String> guidePhone = source.stream().collect(
+                Collectors.toMap(User::getPhone, User::getName,
+                        (oldValue, newValue) -> oldValue));
+
+        return guidePhone.size();
     }
 
 
